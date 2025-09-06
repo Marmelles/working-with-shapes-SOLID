@@ -8,8 +8,16 @@ namespace SOLID_pattern.Interfaces
 {
     public interface IShape
     {
-        double CalculateArea();      // Вычислить площадь
-        double CalculatePerimeter(); // Вычислить периметр
+        /// <summary>
+        /// Вычисление площади
+        /// </summary>
+        /// <returns></returns>
+        double CalculateArea();
+        /// <summary>
+        /// Вычесление периметра
+        /// </summary>
+        /// <returns></returns>
+        double CalculatePerimeter(); 
         
     }
 }

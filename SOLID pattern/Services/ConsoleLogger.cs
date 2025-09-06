@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SOLID_pattern.Services
 {
+    /// <summary>
+    /// Логгер в консоль
+    /// </summary>
     public class ConsoleLogger : ILogger
     {
         public void Log(string message)

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SOLID_pattern.Solvers
 {
+    /// <summary>
+    /// Решатель задач по фигурам
+    /// </summary>
     public class ShapeSolver
     {
         private readonly ILogger _logger;
@@ -17,6 +20,9 @@ namespace SOLID_pattern.Solvers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Запуск решателя
+        /// </summary>
         public void Solve()
         {
             _logger.Log("Запущен решатель фигур");

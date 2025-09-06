@@ -2,6 +2,9 @@
 
 namespace SOLID_pattern.Services
 {
+    /// <summary>
+    /// Файловый логгер
+    /// </summary>
     public class FileLogger : ILogger
     {
         private readonly string _logPath = "app.log.txt"; // будет в папке с .exe

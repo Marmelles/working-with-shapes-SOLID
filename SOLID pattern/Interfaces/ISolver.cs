@@ -8,7 +8,13 @@ namespace SOLID_pattern.Interfaces
 {
     public interface ISolver
     {
-        string Name { get; }  // Название задачи (чтобы показать в меню)
-        void Solve();          // Метод, который запускает решение
+        /// <summary>
+        /// Название задачи (чтобы показать в меню)
+        /// </summary>
+        string Name { get; }
+        /// <summary>
+        /// Метод, который запускает решение
+        /// </summary>
+        void Solve();
     }
 }
