@@ -1,5 +1,7 @@
-﻿using SOLID_pattern.Interfaces;
+﻿using SOLID_pattern.Factories;
+using SOLID_pattern.Interfaces;
 using SOLID_pattern.Models;
+using SOLID_pattern.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +16,12 @@ namespace SOLID_pattern.Solvers
     public class ShapeSolver
     {
         private readonly ILogger _logger;
+        private readonly ShapeFactory _factory;
 
-        public ShapeSolver(ILogger logger)
+        public ShapeSolver(ILogger logger, ShapeFactory factory)
         {
             _logger = logger;
+            _factory = factory;
         }
 
         /// <summary>
@@ -39,7 +43,7 @@ namespace SOLID_pattern.Solvers
             Console.WriteLine("Что посчитать?");
             Console.WriteLine("1. Площадь");
             Console.WriteLine("2. Периметр");
-            var choice = ReadValidInt("Выберите (1 или 2): ", 1, 2);
+            var choice = InputHelper.ReadValidInt("Выберите (1 или 2): ", 1, 2);
 
             // 3. Расчёт и вывод
             if (choice == 1)
@@ -58,47 +62,22 @@ namespace SOLID_pattern.Solvers
 
         private IShape? ReadShape()
         {
+            _logger.Log("Запущен решатель фигур");
+
+            // Показываем доступные фигуры
             Console.WriteLine("Выберите фигуру:");
-            Console.WriteLine("1. Прямоугольник");
-            Console.WriteLine("2. Круг");
-            var choice = ReadValidInt("Введите номер: ", 1, 2);
-
-            return choice == 1 ? ReadRectangle() : ReadCircle();
-        }
-
-        private Rectangle? ReadRectangle()
-        {
-            var width = ReadPositiveDouble("Введите ширину: ");
-            var height = ReadPositiveDouble("Введите высоту: ");
-            return new Rectangle(width, height);
-        }
-
-        private Circle? ReadCircle()
-        {
-            var radius = ReadPositiveDouble("Введите радиус: ");
-            return new Circle(radius);
-        }
-
-        private double ReadPositiveDouble(string prompt)
-        {
-            while (true)
+            for (int i = 0; i < _factory.Options.Count; i++)
             {
-                Console.Write(prompt);
-                if (double.TryParse(Console.ReadLine(), out double value) && value > 0)
-                    return value;
-                Console.WriteLine("Ошибка: введите положительное число.");
+                var shapeOption = _factory.Options[i];
+                Console.WriteLine($"{i + 1}. {shapeOption.Name}");
             }
+
+            var choice = InputHelper.ReadValidInt("Выберите: ", 1, _factory.Options.Count);
+            var shape = _factory.Create(choice);
+
+            return shape;
         }
 
-        private int ReadValidInt(string prompt, int min, int max)
-        {
-            while (true)
-            {
-                Console.Write(prompt);
-                if (int.TryParse(Console.ReadLine(), out int value) && value >= min && value <= max)
-                    return value;
-                Console.WriteLine($"Ошибка: введите число от {min} до {max}.");
-            }
-        }
+
     }
 }
