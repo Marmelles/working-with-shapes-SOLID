@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOLID_pattern.Interfaces
 {
-    public interface IShape : ICalculateArea, ICalculatePerimeter
+    public interface I3DShape : ICalculateArea, ICalculateVolume
     {
-        
     }
 }
